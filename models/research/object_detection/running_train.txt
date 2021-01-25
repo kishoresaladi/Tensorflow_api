@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jan 24 11:01:16 2021
+
+@author: kishore saladi
+"""
+
+python model_main_tf2.py --model_dir=D:/Ml_ref/Tensorflow/workspace/models/v1 --num_train_steps=100 --sample_1_of_n_eval_examples=1 --pipeline_config_path=D:/Ml_ref/Tensorflow/workspace/models/v1 --alsologtostderr
+
+
+python model_main_tf2.py --pipeline_config_path=D:/Ml_ref/Tensorflow/workspace/models/v1/pipeline.config --model_dir=D:/Ml_ref/Tensorflow/workspace/models/v1 --checkpoint_every_n=10 --num_workers=1 --alsologtostderr
+
+
+python export_inference_graph.py --input_type image_tensor --pipeline_config_path D:/Ml_ref/Tensorflow/workspace/models/v1/pipeline.config --trained_checkpoint_prefix D:/Ml_ref/Tensorflow/workspace/models/v1/ckpt-15 --output_directory inference_graph
+
+python exporter_main_v2.py --input_type image_tensor --pipeline_config_path D:/Ml_ref/Tensorflow/workspace/models/v1/pipeline.config --trained_checkpoint_dir D:/Ml_ref/Tensorflow/workspace/models/v1/trained_check --output_directory D:/Ml_ref/Tensorflow
