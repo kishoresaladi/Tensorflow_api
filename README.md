@@ -1,20 +1,16 @@
 # Tensorflow_api
 Object detection code using tf api
 
-
-
-Introduction
-
 Steps
 
-1a.Download TensorFlow Object Detection API repository from GitHub
+---->Download TensorFlow Object Detection API repository from GitHub
 Create a folder directly in C: and name it “tensorflow1”. This working directory will contain the full TensorFlow object detection framework, as well as your training images, training data, trained classifier, configuration files, and everything else needed for the object detection classifier.
 
 Download the full TensorFlow object detection repository located at https://github.com/tensorflow/models by clicking the “Clone or Download” button and downloading the zip file. Open the downloaded zip file and extract the “models-master” folder directly into the C:\tensorflow1 directory you just created. Rename “models-master” to just “models”.
 
 Note: The TensorFlow models repository's code (which contains the object detection API) is continuously updated by the developers. Sometimes they make changes that break functionality with old versions of TensorFlow. It is always best to use the latest version of TensorFlow and download the latest models repository. If you are not using the latest version, clone or download the commit for the version you are using as listed in the table below.
 
-2b. Download the ssd resnet50 model from TensorFlow's model
+--->Download the ssd resnet50 model from TensorFlow's model
 TensorFlow provides several object detection models (pre-trained classifiers with specific neural network architectures) in its model zoo. Some models (such as the SSD-MobileNet model) have an architecture that allows for faster detection but with less accuracy.
 
 
@@ -23,44 +19,13 @@ The “test_labels.csv” and “train_labels.csv” files in \object_detection\
 All files in \object_detection\training
 All files in \object_detection\inference_graph
 
-
-
-
-
-2e. Configure PYTHONPATH environment variable
-A PYTHONPATH variable must be created that points to the \models, \models\research, and \models\research\slim directories. Do this by issuing the following commands (from any directory):
-
-(tensorflow1) C:\> set PYTHONPATH=C:\tensorflow1\models;C:\tensorflow1\models\research;C:\tensorflow1\models\research\slim
-(Note: Every time the "tensorflow1" virtual environment is exited, the PYTHONPATH variable is reset and needs to be set up again. You can use "echo %PYTHONPATH% to see if it has been set or not.)
-
-2f. Compile Protobufs and run setup.py
-Next, compile the Protobuf files, which are used by TensorFlow to configure model and training parameters. Unfortunately, the short protoc compilation command posted on TensorFlow’s Object Detection API installation page does not work on Windows. Every .proto file in the \object_detection\protos directory must be called out individually by the command.
-
-In the Anaconda Command Prompt, change directories to the \models\research directory:
-
-(tensorflow1) C:\> cd C:\tensorflow1\models\research
-Then copy and paste the following command into the command line and press Enter:
-
-protoc --python_out=. .\object_detection\protos\anchor_generator.proto .\object_detection\protos\argmax_matcher.proto .\object_detection\protos\bipartite_matcher.proto .\object_detection\protos\box_coder.proto .\object_detection\protos\box_predictor.proto .\object_detection\protos\eval.proto .\object_detection\protos\faster_rcnn.proto .\object_detection\protos\faster_rcnn_box_coder.proto .\object_detection\protos\grid_anchor_generator.proto .\object_detection\protos\hyperparams.proto .\object_detection\protos\image_resizer.proto .\object_detection\protos\input_reader.proto .\object_detection\protos\losses.proto .\object_detection\protos\matcher.proto .\object_detection\protos\mean_stddev_box_coder.proto .\object_detection\protos\model.proto .\object_detection\protos\optimizer.proto .\object_detection\protos\pipeline.proto .\object_detection\protos\post_processing.proto .\object_detection\protos\preprocessor.proto .\object_detection\protos\region_similarity_calculator.proto .\object_detection\protos\square_box_coder.proto .\object_detection\protos\ssd.proto .\object_detection\protos\ssd_anchor_generator.proto .\object_detection\protos\string_int_label_map.proto .\object_detection\protos\train.proto .\object_detection\protos\keypoint_box_coder.proto .\object_detection\protos\multiscale_anchor_generator.proto .\object_detection\protos\graph_rewriter.proto .\object_detection\protos\calibration.proto .\object_detection\protos\flexible_grid_anchor_generator.proto
-This creates a name_pb2.py file from every name.proto file in the \object_detection\protos folder.
-
-(Note: TensorFlow occassionally adds new .proto files to the \protos folder. If you get an error saying ImportError: cannot import name 'something_something_pb2' , you may need to update the protoc command to include the new .proto files.)
-
-Finally, run the following commands from the C:\tensorflow1\models\research directory:
-
-(tensorflow1) C:\tensorflow1\models\research> python setup.py build
-(tensorflow1) C:\tensorflow1\models\research> python setup.py install
-
-4. Generate Training Data
+---> Generate Training Data
 With the images labeled, it’s time to generate the TFRecords that serve as input data to the TensorFlow training model. This tutorial uses the xml_to_csv.py and generate_tfrecord.py scripts.
 
 First, the image .xml data will be used to create .csv files containing all the data for the train and test images. From the \object_detection folder, issue the following command in the Anaconda command prompt:
 
 
 Next, open the generate_tfrecord.py file in a text editor where each object is assigned an ID number. This same number assignment will be used when configuring the labelmap.pbtxt file .
-
-
-
 
 # TO-DO replace this with label map
 def class_text_to_int(row_label):
